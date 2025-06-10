@@ -15,16 +15,20 @@ const coloresSegurosRGB = [
     setMouseMoveEvent();
 }
 
-
-function setMouseMoveEvent() {
-    document.addEventListener("mousemove", getCoordinates);
-}
-
 function getCoordinates(event, doSomething) {
         const x = event.clientX;
         const y = event.clientY;
+        doSomething(x, y);
         console.log(`Mouse position: X=${x}, Y=${y}`);
 }
+
+
+function setMouseMoveEvent() {
+    document.addEventListener("mousemove", function(event){
+        getCoordinates(event, setBackgroundColorSafe);
+    });
+}
+
 
 function setBackgroundColor(r,g,b) {
     const color = `rgb(${r}, ${g}, ${b})`;
@@ -34,8 +38,12 @@ function setBackgroundColor(r,g,b) {
 function setBackgroundColorSafe(x,y) {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    const viewportAreas = Math.floor(viewportWidth / coloresSegurosRGB.length);
-    const colorIndex = Math.floor(x%viewportAreas);
+    const colorAreasWidth = Math.floor(viewportWidth / coloresSegurosRGB.length);
+    const colorIndex = Math.min(
+        Math.floor(x / colorAreasWidth),
+        coloresSegurosRGB.length - 1
+    );    
+    console.log(`Color index: ${colorIndex} de viewportAreas: ${colorAreasWidth}`);
     const color = coloresSegurosRGB[colorIndex];
     setBackgroundColor(color[0], color[1], color[2]);
 }
