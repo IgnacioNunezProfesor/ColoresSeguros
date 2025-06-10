@@ -9,7 +9,7 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open index.html",
-            "file": "c:\\Users\\inr_j\\OneDrive\\Mi biblioteca\\04.Trabajo\\2024-2025\\4.2 coloresseguros\\index.html"
+            "file": "${workspaceFolder}/index.html"            
         }
     ]
 }
